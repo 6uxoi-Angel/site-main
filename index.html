@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -103,15 +103,15 @@
         .brand {
             padding: 8px 12px;
             border-radius: 8px;
-            border: 1px solid rgba(57, 255, 20, 0.65);
+            border: 1px solid rgba(204, 208, 207, 0.55);
             background: #000000;
-            color: #39ff14;
+            color: var(--c6);
             font-family: "Consolas", "Courier New", monospace;
             letter-spacing: 0.03em;
             text-transform: none;
             font-size: 0.85rem;
-            text-shadow: 0 0 8px rgba(57, 255, 20, 0.65);
-            box-shadow: inset 0 0 14px rgba(57, 255, 20, 0.2);
+            text-shadow: 0 0 8px rgba(204, 208, 207, 0.45);
+            box-shadow: inset 0 0 14px rgba(74, 92, 106, 0.35);
         }
 
         .chip {
@@ -157,10 +157,48 @@
             line-height: 1.1;
         }
 
-        .main p {
+        .about-list {
             margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            font-size: 0.9rem;
+            line-height: 1.35;
             color: var(--c5);
-            line-height: 1.45;
+        }
+
+        .about-row {
+            display: flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .about-row strong {
+            min-width: auto;
+            color: #f0f3f2;
+            font-size: 0.9rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .about-row span {
+            color: var(--c5);
+            font-weight: 400;
+        }
+
+        .about-row-singleline {
+            flex-wrap: nowrap;
+        }
+
+        .about-row-singleline strong {
+            min-width: auto;
+        }
+
+        .about-row-singleline span {
+            white-space: nowrap;
+            font-size: clamp(0.66rem, 1.1vw, 0.84rem);
         }
 
         .box {
@@ -182,14 +220,130 @@
             line-height: 1.1;
         }
 
+        .social-list {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            font-size: 0.9rem;
+            line-height: 1.35;
+            color: var(--c5);
+        }
+
+        .social-row {
+            display: flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .social-row strong {
+            min-width: 78px;
+            color: #f0f3f2;
+            font-size: 0.9rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .social-row span {
+            color: var(--c5);
+            font-weight: 400;
+        }
+
+        .social-row a {
+            color: var(--c6);
+            text-decoration: none;
+            border-bottom: 1px dashed rgba(204, 208, 207, 0.45);
+        }
+
+        .social-row a:hover {
+            color: #ffffff;
+            border-bottom-color: rgba(255, 255, 255, 0.9);
+        }
+
+        .skills-list {
+            margin: 0;
+            padding: 0 4px 0 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            font-size: 0.82rem;
+            line-height: 1.3;
+            color: var(--c5);
+            overflow: auto;
+        }
+
+        .skills-group {
+            padding: 8px 10px;
+            border-radius: 10px;
+            border: 1px solid rgba(204, 208, 207, 0.14);
+            background: rgba(74, 92, 106, 0.14);
+        }
+
+        .skills-title {
+            margin: 0 0 6px;
+            font-weight: 700;
+            font-size: 0.75rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: #f0f3f2;
+        }
+
+        .skills-item {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 6px;
+        }
+
+        .skills-item strong {
+            color: #f0f3f2;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .skills-item span {
+            color: var(--c5);
+            font-size: 0.8rem;
+            font-weight: 400;
+        }
+
+        .skills-item-vertical {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1px;
+            margin-bottom: 4px;
+        }
+
+        .skills-item-vertical strong {
+            font-size: 0.82rem;
+        }
+
+        .skills-item-vertical span {
+            font-size: 0.8rem;
+        }
+
+        .skills-list::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .skills-list::-webkit-scrollbar-thumb {
+            border-radius: 999px;
+            background: rgba(155, 168, 171, 0.45);
+        }
+
         .box-one {
             grid-column: 2;
             grid-row: 2;
+            justify-content: flex-start;
+            gap: 10px;
         }
 
         .box-two {
             grid-column: 3;
             grid-row: 2;
+            justify-content: flex-start;
+            gap: 10px;
         }
 
         .box-three {
@@ -281,32 +435,132 @@
 
         <section class="panel main">
             <div class="avatar"></div>
-            <h1>Темный интерфейс</h1>
-            <p>Главный блок повторяет левую большую секцию из Ui.png, а вся страница собрана в палитре из Thema.jpg.</p>
+            <h1>About me</h1>
+            <div class="about-list">
+                <div class="about-row">
+                    <strong>Name:</strong>
+                    <span>Артём</span>
+                </div>
+                <div class="about-row">
+                    <strong>Age:</strong>
+                    <span>16 (27.11.2009)</span>
+                </div>
+                <div class="about-row">
+                    <strong>Location:</strong>
+                    <span>Russia, Moscow</span>
+                </div>
+                <div class="about-row">
+                    <strong>Orientation:</strong>
+                    <span>Heterosexuality</span>
+                </div>
+                <div class="about-row">
+                    <strong>Marital status:</strong>
+                    <span>I don't have / I'm not looking for</span>
+                </div>
+                <div class="about-row about-row-singleline">
+                    <strong>Interests:</strong>
+                    <span>Programming / games / swimming / anime</span>
+                </div>
+                <div class="about-row">
+                    <strong>Education:</strong>
+                    <span>9th grade of school / college</span>
+                </div>
+            </div>
         </section>
 
         <section class="panel box box-one">
-            <h2>Блок 01</h2>
-            <strong>#11212D</strong>
-            <span>Акцентный контент</span>
+            <h2>social media</h2>
+            <div class="social-list">
+                <div class="social-row">
+                    <strong>VK:</strong>
+                    <a href="https://vk.com/it_is_not_known" target="_blank" rel="noopener noreferrer">it_is_not_known</a>
+                </div>
+                <div class="social-row">
+                    <strong>Telegram:</strong>
+                    <a href="https://t.me/it_is_not_known" target="_blank" rel="noopener noreferrer">it_is_not_known</a>
+                </div>
+                <div class="social-row">
+                    <strong>Discord:</strong>
+                    <span>sataha</span>
+                </div>
+                <div class="social-row">
+                    <strong>TikTok:</strong>
+                    <span>no</span>
+                </div>
+                <div class="social-row">
+                    <strong>GitHub:</strong>
+                    <a href="https://github.com/6uxoi-Angel" target="_blank" rel="noopener noreferrer">6uxoi-Angel</a>
+                </div>
+                <div class="social-row">
+                    <strong>Steam main:</strong>
+                    <a href="https://steamcommunity.com/profiles/76561199807853468/" target="_blank" rel="noopener noreferrer">It_is_not_known</a>
+                </div>
+                <div class="social-row">
+                    <strong>Steam twin:</strong>
+                    <a href="https://steamcommunity.com/profiles/76561198766866753/" target="_blank" rel="noopener noreferrer">x6uxoiangelsx</a>
+                </div>
+            </div>
         </section>
 
         <section class="panel box box-two">
-            <h2>Блок 02</h2>
-            <strong>#4A5C6A</strong>
-            <span>Инфо-панель</span>
+            <h2>Skills</h2>
+            <div class="skills-list">
+                <div class="skills-group">
+                    <p class="skills-title">Programming</p>
+                    <div class="skills-item skills-item-vertical">
+                        <strong>Java:</strong>
+                        <span>Fullstack Developer | Middle</span>
+                    </div>
+                    <div class="skills-item skills-item-vertical">
+                        <strong>Python:</strong>
+                        <span>Data Scientist | Backend Developer | Middle</span>
+                    </div>
+                    <div class="skills-item skills-item-vertical">
+                        <strong>C#:</strong>
+                        <span>Game Developer | Junior</span>
+                    </div>
+                    <div class="skills-item skills-item-vertical">
+                        <strong>VibeCode:</strong>
+                        <span>I rarely use it.</span>
+                    </div>
+                </div>
+
+                <div class="skills-group">
+                    <p class="skills-title">High-speed printing</p>
+                    <div class="skills-item">
+                        <strong>Speed:</strong>
+                        <span>54 WPN ≈ 274 Max</span>
+                    </div>
+                </div>
+
+                <div class="skills-group">
+                    <p class="skills-title">Social engineering</p>
+                    <div class="skills-item">
+                        <strong>Success rate:</strong>
+                        <span>68%</span>
+                    </div>
+                </div>
+
+                <div class="skills-group">
+                    <p class="skills-title">Aim | CPS</p>
+                    <div class="skills-item">
+                        <strong>Stats:</strong>
+                        <span>8/10 | 12.76 = 10 sec</span>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <section class="panel box box-three">
-            <h2>Блок 03</h2>
-            <strong>#253745</strong>
-            <span>Вторичный раздел</span>
+            <h2>???????????????</h2>
+            <strong>???????????????</strong>
+            <span>???????????????</span>
         </section>
 
         <section class="panel box box-four">
-            <h2>Блок 04</h2>
-            <strong>#CCD0CF</strong>
-            <span>Светлый контраст</span>
+            <h2>???????????????</h2>
+            <strong>???????????????</strong>
+            <span>???????????????</span>
         </section>
     </main>
 
