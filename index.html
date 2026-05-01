@@ -1,0 +1,315 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theme UI Layout</title>
+    <style>
+        :root {
+            --c1: #06141b;
+            --c2: #11212d;
+            --c3: #253745;
+            --c4: #4a5c6a;
+            --c5: #9ba8ab;
+            --c6: #ccd0cf;
+            --glass-fill: rgba(155, 168, 171, 0);
+            --glass-fill-soft: rgba(155, 168, 171, 0);
+            --glass-edge: rgba(204, 208, 207, 0);
+            --glass-shine: rgba(255, 255, 255, 0);
+            --glass-inset: rgba(6, 20, 27, 0);
+            --glass-drop: rgba(0, 0, 0, 0);
+            --glass-spot: rgba(255, 255, 255, 0);
+            --glass-inner-edge: rgba(255, 255, 255, 0);
+            --chip-fill: rgba(155, 168, 171, 0);
+            --chip-edge: rgba(204, 208, 207, 0);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 24px;
+            font-family: "Bahnschrift", "Trebuchet MS", sans-serif;
+            color: var(--c6);
+            background:
+                linear-gradient(175deg, rgba(6, 20, 27, 0.64), rgba(17, 33, 45, 0.58)),
+                url("theme/ava/background.gif") center / cover no-repeat fixed;
+        }
+
+        .board {
+            width: min(980px, 100%);
+            min-height: 620px;
+            padding: 16px;
+            border-radius: 24px;
+            border: 1px solid rgba(204, 208, 207, 0.28);
+            background:
+                linear-gradient(155deg, rgba(6, 20, 27, 0.52), rgba(37, 55, 69, 0.44) 56%, rgba(74, 92, 106, 0.3));
+            box-shadow:
+                0 22px 50px rgba(0, 0, 0, 0.42),
+                inset 0 1px 0 rgba(204, 208, 207, 0.2);
+            backdrop-filter: blur(14px) saturate(130%);
+            -webkit-backdrop-filter: blur(14px) saturate(130%);
+            display: grid;
+            grid-template-columns: 1.3fr 0.9fr 0.9fr;
+            grid-template-rows: 84px 1fr 1fr;
+            gap: 12px;
+        }
+
+        .panel {
+            position: relative;
+            overflow: hidden;
+            border-radius: 18px;
+            padding: 16px;
+            border: 1px solid var(--glass-edge);
+            background: linear-gradient(165deg, var(--glass-fill), var(--glass-fill-soft));
+            box-shadow:
+                inset 0 1px 0 var(--glass-shine),
+                inset 0 -14px 26px var(--glass-inset),
+                0 14px 30px var(--glass-drop);
+            backdrop-filter: blur(18px) saturate(165%);
+            -webkit-backdrop-filter: blur(18px) saturate(165%);
+        }
+
+        .panel::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background: radial-gradient(120% 80% at 6% -15%, var(--glass-spot), transparent 50%);
+        }
+
+        .panel::after {
+            content: "";
+            position: absolute;
+            inset: 1px;
+            border-radius: 17px;
+            pointer-events: none;
+            border: 1px solid var(--glass-inner-edge);
+        }
+
+        .topbar {
+            grid-column: 1 / -1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .brand {
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(57, 255, 20, 0.65);
+            background: #000000;
+            color: #39ff14;
+            font-family: "Consolas", "Courier New", monospace;
+            letter-spacing: 0.03em;
+            text-transform: none;
+            font-size: 0.85rem;
+            text-shadow: 0 0 8px rgba(57, 255, 20, 0.65);
+            box-shadow: inset 0 0 14px rgba(57, 255, 20, 0.2);
+        }
+
+        .chip {
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: var(--chip-fill);
+            border: 1px solid var(--chip-edge);
+            color: var(--c6);
+            font-size: 0.78rem;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .chip img {
+            height: 20px;
+            width: auto;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .main {
+            grid-column: 1;
+            grid-row: 2 / 4;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .avatar {
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            border-radius: 14px;
+            background: url("theme/ava/main.jpg") center / cover no-repeat;
+            border: 1px solid rgba(204, 208, 207, 0.15);
+        }
+
+        .main h1 {
+            margin: 0;
+            color: #f0f3f2;
+            font-size: 1.6rem;
+            line-height: 1.1;
+        }
+
+        .main p {
+            margin: 0;
+            color: var(--c5);
+            line-height: 1.45;
+        }
+
+        .box {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .box h2 {
+            margin: 0;
+            font-size: 0.82rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .box strong {
+            font-size: 1.35rem;
+            line-height: 1.1;
+        }
+
+        .box-one {
+            grid-column: 2;
+            grid-row: 2;
+        }
+
+        .box-two {
+            grid-column: 3;
+            grid-row: 2;
+        }
+
+        .box-three {
+            grid-column: 2;
+            grid-row: 3;
+        }
+
+        .box-four {
+            grid-column: 3;
+            grid-row: 3;
+        }
+
+        @media (max-width: 860px) {
+            .board {
+                min-height: auto;
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: auto auto auto auto;
+            }
+
+            .main {
+                grid-column: 1 / -1;
+                grid-row: 2;
+            }
+
+            .box-one {
+                grid-column: 1;
+                grid-row: 3;
+            }
+
+            .box-two {
+                grid-column: 2;
+                grid-row: 3;
+            }
+
+            .box-three {
+                grid-column: 1;
+                grid-row: 4;
+            }
+
+            .box-four {
+                grid-column: 2;
+                grid-row: 4;
+            }
+        }
+
+        @media (max-width: 580px) {
+            body {
+                padding: 12px;
+            }
+
+            .board {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto auto auto auto auto;
+            }
+
+            .box-one,
+            .box-two,
+            .box-three,
+            .box-four {
+                grid-column: 1;
+            }
+
+            .box-one {
+                grid-row: 3;
+            }
+
+            .box-two {
+                grid-row: 4;
+            }
+
+            .box-three {
+                grid-row: 5;
+            }
+
+            .box-four {
+                grid-row: 6;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="board">
+        <header class="panel topbar">
+            <div class="brand">System.out.print("Hello word!");</div>
+            <div class="chip" id="busuanzi_container_site_pv">
+                Посещения: <span id="busuanzi_value_site_pv">0</span>
+            </div>
+        </header>
+
+        <section class="panel main">
+            <div class="avatar"></div>
+            <h1>Темный интерфейс</h1>
+            <p>Главный блок повторяет левую большую секцию из Ui.png, а вся страница собрана в палитре из Thema.jpg.</p>
+        </section>
+
+        <section class="panel box box-one">
+            <h2>Блок 01</h2>
+            <strong>#11212D</strong>
+            <span>Акцентный контент</span>
+        </section>
+
+        <section class="panel box box-two">
+            <h2>Блок 02</h2>
+            <strong>#4A5C6A</strong>
+            <span>Инфо-панель</span>
+        </section>
+
+        <section class="panel box box-three">
+            <h2>Блок 03</h2>
+            <strong>#253745</strong>
+            <span>Вторичный раздел</span>
+        </section>
+
+        <section class="panel box box-four">
+            <h2>Блок 04</h2>
+            <strong>#CCD0CF</strong>
+            <span>Светлый контраст</span>
+        </section>
+    </main>
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
+</html>
