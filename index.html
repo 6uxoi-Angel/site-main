@@ -31,14 +31,283 @@
         body {
             margin: 0;
             min-height: 100vh;
-            display: grid;
-            place-items: center;
-            padding: 24px;
             font-family: "Bahnschrift", "Trebuchet MS", sans-serif;
             color: var(--c6);
             background:
                 linear-gradient(175deg, rgba(6, 20, 27, 0.64), rgba(17, 33, 45, 0.58)),
                 url("theme/ava/background.gif") center / cover no-repeat fixed;
+        }
+
+        .screen {
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 24px;
+            transition: opacity 900ms ease, transform 900ms ease, filter 900ms ease;
+        }
+
+        .hidden-stage {
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(18px) scale(0.985);
+            filter: blur(10px);
+            position: fixed;
+            inset: 0;
+        }
+
+        .active-stage {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0) scale(1);
+            filter: blur(0);
+            position: relative;
+        }
+
+        .loader-card {
+            width: min(620px, 92vw);
+            padding: 34px;
+            border: 1px solid rgba(204, 208, 207, 0.22);
+            border-radius: 30px;
+            background: linear-gradient(180deg, rgba(155, 168, 171, 0.08), rgba(155, 168, 171, 0.04));
+            box-shadow: 0 30px 100px rgba(0, 0, 0, 0.68);
+            backdrop-filter: blur(24px);
+        }
+
+        .loader-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 22px;
+            color: var(--c5);
+            font-size: 14px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .loader-title {
+            margin: 0 0 26px;
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+            color: #f0f3f2;
+            font-size: clamp(30px, 6vw, 58px);
+            line-height: 0.96;
+            letter-spacing: -0.06em;
+            font-weight: 760;
+        }
+
+        .loading-dots {
+            display: inline-flex;
+            gap: 1px;
+            color: var(--c6);
+        }
+
+        .loading-dot {
+            display: inline-block;
+            width: 0.42ch;
+            opacity: 0;
+            animation: loadingDots 1.15s infinite;
+        }
+
+        .loading-dot:nth-child(2) {
+            animation-delay: 0.18s;
+        }
+
+        .loading-dot:nth-child(3) {
+            animation-delay: 0.36s;
+        }
+
+        @keyframes loadingDots {
+            0%,
+            20% {
+                opacity: 0;
+            }
+            40%,
+            60% {
+                opacity: 1;
+            }
+            80%,
+            100% {
+                opacity: 0;
+            }
+        }
+
+        .progress-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .progress-shell {
+            flex: 1;
+            height: 12px;
+            overflow: hidden;
+            border-radius: 999px;
+            background: rgba(155, 168, 171, 0.12);
+            border: 1px solid rgba(204, 208, 207, 0.22);
+        }
+
+        .progress-percent {
+            min-width: 52px;
+            text-align: right;
+            color: var(--c6);
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, var(--c4), var(--c6));
+            box-shadow: 0 0 28px rgba(204, 208, 207, 0.3);
+            transition: width 90ms linear;
+        }
+
+        .progress-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 16px;
+            color: var(--c5);
+            font-size: 14px;
+        }
+
+        .code-stage {
+            width: min(900px, 94vw);
+        }
+
+        .terminal-window,
+        .code-window {
+            border-radius: 28px;
+            overflow: hidden;
+            border: 1px solid rgba(204, 208, 207, 0.22);
+            background: rgba(6, 20, 27, 0.78);
+            box-shadow: 0 30px 100px rgba(0, 0, 0, 0.68);
+            backdrop-filter: blur(22px);
+        }
+
+        .window-bar {
+            height: 48px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0 18px;
+            border-bottom: 1px solid rgba(204, 208, 207, 0.22);
+            background: rgba(155, 168, 171, 0.08);
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.24);
+        }
+
+        .dot:nth-child(1) {
+            background: #ff5f57;
+        }
+
+        .dot:nth-child(2) {
+            background: #ffbd2e;
+        }
+
+        .dot:nth-child(3) {
+            background: #28c840;
+        }
+
+        .window-title {
+            margin-left: 10px;
+            color: var(--c5);
+            font-size: 13px;
+            letter-spacing: 0.06em;
+        }
+
+        .sequence-code {
+            margin: 0;
+            padding: clamp(20px, 4vw, 42px);
+            white-space: pre-wrap;
+            word-break: break-word;
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+            font-size: clamp(14px, 2vw, 20px);
+            line-height: 1.75;
+            color: #eeeeee;
+            text-shadow: 0 0 18px rgba(255, 255, 255, 0.08);
+        }
+
+        .caret {
+            display: inline-block;
+            width: 9px;
+            height: 1.2em;
+            margin-left: 3px;
+            vertical-align: -0.18em;
+            background: var(--c6);
+            animation: blink 900ms steps(2, start) infinite;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+
+        .console-stage {
+            width: min(820px, 94vw);
+            opacity: 0;
+            transform: translateY(24px) scale(0.98);
+            filter: blur(12px);
+            transition: opacity 1100ms ease, transform 1100ms ease, filter 1100ms ease;
+        }
+
+        .console-stage.show {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            filter: blur(0);
+        }
+
+        .console-body {
+            min-height: 280px;
+            padding: clamp(22px, 5vw, 48px);
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+            font-size: clamp(18px, 3vw, 34px);
+            line-height: 1.55;
+            color: var(--c6);
+        }
+
+        .console-muted {
+            display: block;
+            color: rgba(204, 208, 207, 0.56);
+            font-size: 0.48em;
+            margin-bottom: 18px;
+        }
+
+        .restart {
+            position: fixed;
+            right: 18px;
+            bottom: 18px;
+            z-index: 10;
+            border: 1px solid rgba(204, 208, 207, 0.3);
+            background: rgba(155, 168, 171, 0.16);
+            color: var(--c6);
+            border-radius: 999px;
+            padding: 12px 16px;
+            cursor: pointer;
+            backdrop-filter: blur(16px);
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 500ms ease, transform 500ms ease, background 300ms ease;
+        }
+
+        .restart.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .restart:hover {
+            background: rgba(155, 168, 171, 0.26);
+        }
+
+        .site-shell {
+            width: 100%;
         }
 
         .board {
@@ -407,11 +676,14 @@
 
         @media (max-width: 580px) {
             body {
-                padding: 12px;
                 min-height: 100dvh;
                 background:
                     linear-gradient(175deg, rgba(6, 20, 27, 0.64), rgba(17, 33, 45, 0.58)),
                     url("theme/ava/background.gif") center / cover no-repeat;
+            }
+
+            .screen {
+                padding: 12px;
             }
 
             .topbar {
@@ -456,9 +728,62 @@
     </style>
 </head>
 <body>
-    <main class="board">
+    <button class="restart" id="restartBtn">Повторить</button>
+    <div id="sequenceRoot">
+        <section class="screen active-stage" id="loaderStage">
+            <div class="loader-card">
+                <h1 class="loader-title">
+                    <span>Loading</span>
+                    <span class="loading-dots" aria-hidden="true">
+                        <span class="loading-dot">.</span>
+                        <span class="loading-dot">.</span>
+                        <span class="loading-dot">.</span>
+                    </span>
+                </h1>
+                <div class="progress-row">
+                    <div class="progress-shell" aria-label="Download progress">
+                        <div class="progress-bar" id="progressBar"></div>
+                    </div>
+                    <span id="percent" class="progress-percent">0%</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="screen hidden-stage" id="codeStage">
+            <div class="code-stage">
+                <div class="code-window">
+                    <div class="window-bar">
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="window-title">Hello.java</span>
+                    </div>
+                    <pre class="sequence-code"><code id="codeText"></code><span class="caret" id="codeCaret"></span></pre>
+                </div>
+            </div>
+        </section>
+
+        <section class="screen hidden-stage" id="consoleStageWrapper">
+            <div class="console-stage" id="consoleStage">
+                <div class="terminal-window">
+                    <div class="window-bar">
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="window-title">terminal</span>
+                    </div>
+                    <div class="console-body">
+                        <span class="console-muted">$ javac Hello.java && java Hello</span>
+                        <span id="consoleOutput"></span><span class="caret" id="consoleCaret"></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="screen hidden-stage site-shell" id="siteStage">
+            <main class="board">
         <header class="panel topbar">
-            <div class="brand">System.out.print("Hello word!");</div>
+            <div class="brand">System.out.print("Hello, World");</div>
             <div class="topbar-stats">
                 <div class="chip" id="busuanzi_container_site_pv">
                     Посещения: <span id="busuanzi_value_site_pv">0</span>
@@ -596,7 +921,7 @@
                     <span>Closed</span>
                 </div>
                 <div class="social-row">
-                    <strong>GG - God game:</strong>
+                    <strong>God game:</strong>
                     <a href="https://github.com/6uxoi-Angel/GG---God-game-interneturok-VibeCode" target="_blank" rel="noopener noreferrer">God-game</a>
                 </div>
                 <div class="social-row">
@@ -614,12 +939,134 @@
             <h2>statistics</h2>
             <div class="social-list" id="extension_users_container">
                 <div class="social-row">
-                    <strong>GG God game -</strong> users
+                    <strong>God game -</strong>users
                     <span>[<span id="extension_users_value">0</span>]</span>
                 </div>
             </div>
         </section>
-    </main>
+            </main>
+        </section>
+    </div>
+
+    <script>
+        (() => {
+            const loaderStage = document.getElementById('loaderStage');
+            const codeStage = document.getElementById('codeStage');
+            const consoleStageWrapper = document.getElementById('consoleStageWrapper');
+            const consoleStage = document.getElementById('consoleStage');
+            const siteStage = document.getElementById('siteStage');
+            const progressBar = document.getElementById('progressBar');
+            const percent = document.getElementById('percent');
+            const codeText = document.getElementById('codeText');
+            const codeCaret = document.getElementById('codeCaret');
+            const consoleOutput = document.getElementById('consoleOutput');
+            const consoleCaret = document.getElementById('consoleCaret');
+            const restartBtn = document.getElementById('restartBtn');
+
+            const javaCode = `public class Hello {
+    public static void main(String[] args) {
+        System.out.print("Hello World!");
+    }
+}`;
+
+            const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+            const stages = [loaderStage, codeStage, consoleStageWrapper, siteStage];
+            let isRunning = false;
+
+            function activateStage(stage) {
+                stages.forEach((section) => {
+                    section.classList.remove('active-stage');
+                    section.classList.add('hidden-stage');
+                });
+
+                stage.classList.remove('hidden-stage');
+                stage.classList.add('active-stage');
+            }
+
+            function resetSequence() {
+                progressBar.style.width = '0%';
+                percent.textContent = '0%';
+                codeText.textContent = '';
+                consoleOutput.textContent = '';
+                codeCaret.style.display = 'inline-block';
+                consoleCaret.style.display = 'inline-block';
+                consoleStage.classList.remove('show');
+                restartBtn.classList.remove('show');
+                activateStage(loaderStage);
+            }
+
+            async function animateProgress() {
+                let value = 0;
+
+                while (value < 100) {
+                    const remaining = 100 - value;
+                    const easingStep = Math.max(0.18, remaining * 0.025);
+                    const microVariation = Math.random() * 0.7;
+
+                    value = Math.min(100, value + easingStep + microVariation);
+                    progressBar.style.width = `${value}%`;
+                    percent.textContent = `${Math.floor(value)}%`;
+
+                    await wait(55 + Math.random() * 80);
+                }
+
+                percent.textContent = '100%';
+                await wait(700);
+            }
+
+            async function typeText(target, text, speed = 34) {
+                target.textContent = '';
+
+                for (const char of text) {
+                    target.textContent += char;
+                    const pause = char === '\n' ? speed * 5 : speed + Math.random() * speed;
+                    await wait(pause);
+                }
+            }
+
+            async function showCodeStage() {
+                activateStage(codeStage);
+                await wait(800);
+                await typeText(codeText, javaCode, 20);
+                codeCaret.style.display = 'none';
+                await wait(900);
+            }
+
+            async function showConsoleStage() {
+                activateStage(consoleStageWrapper);
+                await wait(450);
+                consoleStage.classList.add('show');
+                await wait(850);
+                await typeText(consoleOutput, 'Hello World!', 58);
+                await wait(700);
+                consoleCaret.style.display = 'none';
+                await wait(900);
+            }
+
+            async function showSiteStage() {
+                activateStage(siteStage);
+                await wait(450);
+                restartBtn.classList.add('show');
+            }
+
+            async function runSequence() {
+                if (isRunning) {
+                    return;
+                }
+
+                isRunning = true;
+                resetSequence();
+                await animateProgress();
+                await showCodeStage();
+                await showConsoleStage();
+                await showSiteStage();
+                isRunning = false;
+            }
+
+            restartBtn.addEventListener('click', runSequence);
+            window.addEventListener('load', runSequence);
+        })();
+    </script>
 
     <script>
         (() => {
