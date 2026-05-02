@@ -623,7 +623,9 @@
             const counterNode = document.getElementById('extension_users_value');
             if (!counterNode) return;
 
+            const API_BASE_URL = 'https://gg-counter-api.artemrasputin3.workers.dev';
             const endpoints = [
+                `${API_BASE_URL}/v1/counters/god_game_extension_users`,
                 'https://api.counterapi.dev/v1/6uxoi_angel_site/god_game_extension_users',
                 'https://api.countapi.xyz/get/6uxoi_angel_site/god_game_extension_users'
             ];
