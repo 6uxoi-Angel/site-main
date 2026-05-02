@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -623,24 +623,66 @@
             const counterNode = document.getElementById('extension_users_value');
             if (!counterNode) return;
 
-            const endpoint = 'https://api.countapi.xyz/get/6uxoi_angel_site/god_game_extension_users';
+            const endpoints = [
+                'https://api.counterapi.dev/v1/6uxoi_angel_site/god_game_extension_users',
+                'https://api.countapi.xyz/get/6uxoi_angel_site/god_game_extension_users'
+            ];
 
-            fetch(endpoint, { cache: 'no-store' })
-                .then((response) => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP ${response.status}`);
+            const extractValue = (payload) => {
+                if (payload && typeof payload.value === 'number') {
+                    return payload.value;
+                }
+
+                if (payload && payload.data && typeof payload.data.value === 'number') {
+                    return payload.data.value;
+                }
+
+                if (payload && typeof payload.count === 'number') {
+                    return payload.count;
+                }
+
+                return null;
+            };
+
+            const tryLoadCounter = async () => {
+                const errors = [];
+
+                for (const endpoint of endpoints) {
+                    try {
+                        const response = await fetch(endpoint, { cache: 'no-store' });
+                        if (!response.ok) {
+                            throw new Error(`HTTP ${response.status}`);
+                        }
+
+                        const payload = await response.json();
+                        const value = extractValue(payload);
+                        if (Number.isFinite(value)) {
+                            return { value, endpoint };
+                        }
+
+                        throw new Error('No numeric value in response');
+                    } catch (error) {
+                        const text = error instanceof Error ? error.message : String(error);
+                        errors.push(`${endpoint} -> ${text}`);
                     }
-                    return response.json();
-                })
-                .then((payload) => {
-                    const value = Number.isFinite(payload?.value) ? payload.value : 0;
-                    counterNode.textContent = String(value);
-                })
-                .catch(() => {
-                    counterNode.textContent = '0';
+                }
+
+                throw new Error(errors.join(' | '));
+            };
+
+            tryLoadCounter()
+                .then((result) => {
+                    counterNode.textContent = String(result.value);
                     const chip = document.getElementById('extension_users_container');
                     if (chip) {
-                        chip.title = 'Не удалось обновить счётчик';
+                        chip.title = `Источник: ${result.endpoint}`;
+                    }
+                })
+                .catch((error) => {
+                    counterNode.textContent = 'n/a';
+                    const chip = document.getElementById('extension_users_container');
+                    if (chip) {
+                        chip.title = `Ошибка счётчика: ${error instanceof Error ? error.message : String(error)}`;
                     }
                 });
         })();
