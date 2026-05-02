@@ -368,6 +368,8 @@
         .box-four {
             grid-column: 3;
             grid-row: 3;
+            justify-content: flex-start;
+            gap: 10px;
         }
 
         @media (max-width: 860px) {
@@ -460,9 +462,6 @@
             <div class="topbar-stats">
                 <div class="chip" id="busuanzi_container_site_pv">
                     Посещения: <span id="busuanzi_value_site_pv">0</span>
-                </div>
-                <div class="chip" id="extension_users_container">
-                    Пользователи расширения: <span id="extension_users_value">0</span>
                 </div>
             </div>
         </header>
@@ -612,9 +611,13 @@
         </section>
 
         <section class="panel box box-four">
-            <h2>???????????????</h2>
-            <strong>???????????????</strong>
-            <span>???????????????</span>
+            <h2>statistics</h2>
+            <div class="social-list" id="extension_users_container">
+                <div class="social-row">
+                    <strong>GG God game -</strong> users
+                    <span>[<span id="extension_users_value">0</span>]</span>
+                </div>
+            </div>
         </section>
     </main>
 
