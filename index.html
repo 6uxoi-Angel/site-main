@@ -100,11 +100,19 @@
             gap: 12px;
         }
 
+        .topbar-stats {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
         .brand {
             padding: 8px 12px;
             border-radius: 8px;
             border: 1px solid rgba(204, 208, 207, 0.55);
-            background: #000000;
+            background: rgba(17, 33, 45, 0.62);
             color: var(--c6);
             font-family: "Consolas", "Courier New", monospace;
             letter-spacing: 0.03em;
@@ -404,6 +412,16 @@
                     url("theme/ava/background.gif") center / cover no-repeat;
             }
 
+            .topbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .topbar-stats {
+                width: 100%;
+                justify-content: flex-start;
+            }
+
             .board {
                 grid-template-columns: 1fr;
                 grid-template-rows: auto auto auto auto auto auto;
@@ -439,8 +457,13 @@
     <main class="board">
         <header class="panel topbar">
             <div class="brand">System.out.print("Hello word!");</div>
-            <div class="chip" id="busuanzi_container_site_pv">
-                Посещения: <span id="busuanzi_value_site_pv">0</span>
+            <div class="topbar-stats">
+                <div class="chip" id="busuanzi_container_site_pv">
+                    Посещения: <span id="busuanzi_value_site_pv">0</span>
+                </div>
+                <div class="chip" id="extension_users_container">
+                    Пользователи расширения: <span id="extension_users_value">0</span>
+                </div>
             </div>
         </header>
 
@@ -595,6 +618,33 @@
         </section>
     </main>
 
+    <script>
+        (() => {
+            const counterNode = document.getElementById('extension_users_value');
+            if (!counterNode) return;
+
+            const endpoint = 'https://api.countapi.xyz/get/6uxoi_angel_site/god_game_extension_users';
+
+            fetch(endpoint, { cache: 'no-store' })
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then((payload) => {
+                    const value = Number.isFinite(payload?.value) ? payload.value : 0;
+                    counterNode.textContent = String(value);
+                })
+                .catch(() => {
+                    counterNode.textContent = '0';
+                    const chip = document.getElementById('extension_users_container');
+                    if (chip) {
+                        chip.title = 'Не удалось обновить счётчик';
+                    }
+                });
+        })();
+    </script>
     <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 </body>
 </html>
