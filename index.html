@@ -411,6 +411,170 @@
             vertical-align: middle;
         }
 
+        .chip-button {
+            cursor: pointer;
+            font: inherit;
+            line-height: 1;
+            transition: background 240ms ease, border-color 240ms ease, transform 240ms ease;
+        }
+
+        .chip-button:hover {
+            background: rgba(155, 168, 171, 0.18);
+            border-color: rgba(204, 208, 207, 0.5);
+            transform: translateY(-1px);
+        }
+
+        .chip-button:focus-visible {
+            outline: 2px solid rgba(204, 208, 207, 0.65);
+            outline-offset: 2px;
+        }
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            z-index: 40;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 18px;
+            background: rgba(6, 20, 27, 0.74);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .modal[hidden] {
+            display: none;
+        }
+
+        .certificates-dialog {
+            width: min(980px, 100%);
+            max-height: min(92vh, 920px);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 18px;
+            border-radius: 20px;
+        }
+
+        .certificates-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .certificates-title {
+            margin: 0;
+            font-size: 1rem;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: #f0f3f2;
+        }
+
+        .certificates-close {
+            width: 34px;
+            height: 34px;
+            border-radius: 999px;
+            border: 1px solid rgba(204, 208, 207, 0.34);
+            background: rgba(155, 168, 171, 0.15);
+            color: var(--c6);
+            font-size: 1.25rem;
+            line-height: 1;
+            cursor: pointer;
+            transition: background 200ms ease, border-color 200ms ease;
+        }
+
+        .certificates-close:hover {
+            background: rgba(155, 168, 171, 0.28);
+            border-color: rgba(204, 208, 207, 0.5);
+        }
+
+        .certificates-meta {
+            margin: 0;
+            color: var(--c5);
+            font-size: 0.9rem;
+        }
+
+        .certificates-grid {
+            margin: 0;
+            padding: 4px 2px 2px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            overflow: auto;
+        }
+
+        .certificate-card {
+            width: 100%;
+            border: 1px solid rgba(204, 208, 207, 0.2);
+            border-radius: 12px;
+            background: rgba(6, 20, 27, 0.42);
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            cursor: pointer;
+            color: var(--c6);
+            font: inherit;
+            text-align: left;
+            transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+        }
+
+        .certificate-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(204, 208, 207, 0.52);
+            box-shadow: 0 14px 26px rgba(0, 0, 0, 0.35);
+        }
+
+        .certificate-card:focus-visible {
+            outline: 2px solid rgba(204, 208, 207, 0.65);
+            outline-offset: 2px;
+        }
+
+        .certificate-thumb {
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid rgba(204, 208, 207, 0.14);
+            background: rgba(17, 33, 45, 0.5);
+        }
+
+        .certificate-name {
+            font-size: 0.82rem;
+            line-height: 1.35;
+            color: var(--c5);
+        }
+
+        .certificate-empty {
+            margin: 0;
+            color: var(--c5);
+            font-size: 0.9rem;
+        }
+
+        .viewer-shell {
+            width: min(96vw, 1500px);
+            max-height: 94vh;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .viewer-top {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .viewer-image {
+            width: 100%;
+            height: auto;
+            max-height: calc(94vh - 54px);
+            object-fit: contain;
+            border-radius: 14px;
+            border: 1px solid rgba(204, 208, 207, 0.24);
+            background: rgba(6, 20, 27, 0.7);
+        }
+
         .main {
             grid-column: 1;
             grid-row: 2 / 4;
@@ -724,6 +888,19 @@
                 grid-row: 6;
             }
 
+            .modal {
+                padding: 10px;
+            }
+
+            .certificates-dialog {
+                padding: 14px;
+                max-height: 94vh;
+            }
+
+            .certificates-grid {
+                grid-template-columns: 1fr;
+            }
+
         }
     </style>
 </head>
@@ -785,6 +962,7 @@
         <header class="panel topbar">
             <div class="brand">System.out.print("Hello, World");</div>
             <div class="topbar-stats">
+                <button class="chip chip-button" id="openCertificatesBtn" type="button">Сертификаты</button>
                 <div class="chip" id="busuanzi_container_site_pv">
                     Посещения: <span id="busuanzi_value_site_pv">0</span>
                 </div>
@@ -948,6 +1126,26 @@
         </section>
     </div>
 
+    <div class="modal" id="certificatesModal" hidden>
+        <div class="panel certificates-dialog" role="dialog" aria-modal="true" aria-labelledby="certificatesTitle">
+            <div class="certificates-head">
+                <h2 class="certificates-title" id="certificatesTitle">Сертификаты</h2>
+                <button class="certificates-close" id="closeCertificatesBtn" type="button" aria-label="Закрыть сертификаты">&times;</button>
+            </div>
+            <p class="certificates-meta">Нажмите на сертификат, чтобы открыть его в полном размере.</p>
+            <div class="certificates-grid" id="certificatesGrid"></div>
+        </div>
+    </div>
+
+    <div class="modal" id="certificateViewer" hidden>
+        <div class="viewer-shell" role="dialog" aria-modal="true" aria-label="Просмотр сертификата">
+            <div class="viewer-top">
+                <button class="certificates-close" id="closeCertificateViewerBtn" type="button" aria-label="Закрыть просмотр">&times;</button>
+            </div>
+            <img class="viewer-image" id="certificateViewerImage" alt="">
+        </div>
+    </div>
+
     <script>
         (() => {
             const loaderStage = document.getElementById('loaderStage');
@@ -1065,6 +1263,136 @@
 
             restartBtn.addEventListener('click', runSequence);
             window.addEventListener('load', runSequence);
+        })();
+    </script>
+
+    <script>
+        (() => {
+            const openCertificatesBtn = document.getElementById('openCertificatesBtn');
+            const certificatesModal = document.getElementById('certificatesModal');
+            const closeCertificatesBtn = document.getElementById('closeCertificatesBtn');
+            const certificatesGrid = document.getElementById('certificatesGrid');
+            const certificateViewer = document.getElementById('certificateViewer');
+            const closeCertificateViewerBtn = document.getElementById('closeCertificateViewerBtn');
+            const certificateViewerImage = document.getElementById('certificateViewerImage');
+
+            if (
+                !openCertificatesBtn ||
+                !certificatesModal ||
+                !closeCertificatesBtn ||
+                !certificatesGrid ||
+                !certificateViewer ||
+                !closeCertificateViewerBtn ||
+                !certificateViewerImage
+            ) {
+                return;
+            }
+
+            const certificateFiles = [
+                'theme/Certificate/Python - kaggle.png'
+            ];
+
+            const getCertificateTitle = (path) => {
+                const fileName = path.split('/').pop() || path;
+                return fileName.replace(/\.[^.]+$/, '').replace(/[-_]+/g, ' ').trim();
+            };
+
+            const toggleBodyScroll = (shouldLock) => {
+                document.body.style.overflow = shouldLock ? 'hidden' : '';
+            };
+
+            const openCertificates = () => {
+                certificatesModal.hidden = false;
+                toggleBodyScroll(true);
+            };
+
+            const closeCertificates = () => {
+                certificatesModal.hidden = true;
+                if (certificateViewer.hidden) {
+                    toggleBodyScroll(false);
+                }
+            };
+
+            const openViewer = (path, title) => {
+                certificateViewerImage.src = path;
+                certificateViewerImage.alt = `Сертификат: ${title}`;
+                certificateViewer.hidden = false;
+                toggleBodyScroll(true);
+            };
+
+            const closeViewer = () => {
+                certificateViewer.hidden = true;
+                certificateViewerImage.removeAttribute('src');
+                certificateViewerImage.alt = '';
+                if (certificatesModal.hidden) {
+                    toggleBodyScroll(false);
+                }
+            };
+
+            if (certificateFiles.length === 0) {
+                const emptyMessage = document.createElement('p');
+                emptyMessage.className = 'certificate-empty';
+                emptyMessage.textContent = 'Сертификаты пока не добавлены.';
+                certificatesGrid.appendChild(emptyMessage);
+            } else {
+                const fragment = document.createDocumentFragment();
+
+                certificateFiles.forEach((path) => {
+                    const title = getCertificateTitle(path);
+                    const card = document.createElement('button');
+                    card.type = 'button';
+                    card.className = 'certificate-card';
+                    card.setAttribute('aria-label', `Открыть сертификат: ${title}`);
+
+                    const image = document.createElement('img');
+                    image.className = 'certificate-thumb';
+                    image.src = path;
+                    image.alt = `Сертификат: ${title}`;
+                    image.loading = 'lazy';
+
+                    const label = document.createElement('span');
+                    label.className = 'certificate-name';
+                    label.textContent = title;
+
+                    card.appendChild(image);
+                    card.appendChild(label);
+                    card.addEventListener('click', () => openViewer(path, title));
+                    fragment.appendChild(card);
+                });
+
+                certificatesGrid.appendChild(fragment);
+            }
+
+            openCertificatesBtn.addEventListener('click', openCertificates);
+            closeCertificatesBtn.addEventListener('click', closeCertificates);
+            closeCertificateViewerBtn.addEventListener('click', closeViewer);
+
+            certificatesModal.addEventListener('click', (event) => {
+                if (event.target === certificatesModal) {
+                    closeCertificates();
+                }
+            });
+
+            certificateViewer.addEventListener('click', (event) => {
+                if (event.target === certificateViewer) {
+                    closeViewer();
+                }
+            });
+
+            document.addEventListener('keydown', (event) => {
+                if (event.key !== 'Escape') {
+                    return;
+                }
+
+                if (!certificateViewer.hidden) {
+                    closeViewer();
+                    return;
+                }
+
+                if (!certificatesModal.hidden) {
+                    closeCertificates();
+                }
+            });
         })();
     </script>
 
