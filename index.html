@@ -674,7 +674,7 @@
 
         .social-row {
             display: flex;
-            align-items: baseline;
+            align-items: center;
             flex-wrap: wrap;
             gap: 6px;
         }
@@ -690,6 +690,16 @@
         .social-row span {
             color: var(--c5);
             font-weight: 400;
+        }
+
+
+        .social-icon {
+            width: 20px;
+            height: 20px;
+            flex: 0 0 20px;
+            object-fit: contain;
+            display: inline-block;
+            filter: drop-shadow(0 0 6px rgba(204, 208, 207, 0.24));
         }
 
         .social-row a {
@@ -736,6 +746,22 @@
             flex-wrap: wrap;
             gap: 4px 6px;
         }
+
+        .skill-heading {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .skill-icon {
+            width: 22px;
+            height: 22px;
+            flex: 0 0 22px;
+            object-fit: contain;
+            display: inline-block;
+            filter: drop-shadow(0 0 6px rgba(204, 208, 207, 0.24));
+        }
+
 
         .skills-item strong {
             color: #f0f3f2;
@@ -1008,30 +1034,37 @@
             <h2>social media</h2>
             <div class="social-list">
                 <div class="social-row">
+                    <img class="social-icon" src="theme/ava/vk.png" alt="" aria-hidden="true">
                     <strong>VK:</strong>
                     <a href="https://vk.com/it_is_not_known" target="_blank" rel="noopener noreferrer">it_is_not_known</a>
                 </div>
                 <div class="social-row">
+                    <img class="social-icon" src="theme/ava/Tg.png" alt="" aria-hidden="true">
                     <strong>Telegram:</strong>
                     <a href="https://t.me/it_is_not_known" target="_blank" rel="noopener noreferrer">it_is_not_known</a>
                 </div>
                 <div class="social-row">
+                    <img class="social-icon" src="theme/ava/Ds.png" alt="" aria-hidden="true">
                     <strong>Discord:</strong>
                     <span>sataha</span>
                 </div>
                 <div class="social-row">
+                    <img class="social-icon" src="theme/ava/TT.png" alt="" aria-hidden="true">
                     <strong>TikTok:</strong>
                     <span>no</span>
                 </div>
                 <div class="social-row">
+                    <img class="social-icon" src="theme/ava/Gh.png" alt="" aria-hidden="true">
                     <strong>GitHub:</strong>
                     <a href="https://github.com/6uxoi-Angel" target="_blank" rel="noopener noreferrer">6uxoi-Angel</a>
                 </div>
                 <div class="social-row">
+                    <img class="social-icon" src="theme/ava/St.png" alt="" aria-hidden="true">
                     <strong>Steam main:</strong>
                     <a href="https://steamcommunity.com/profiles/76561199807853468/" target="_blank" rel="noopener noreferrer">It_is_not_known</a>
                 </div>
                 <div class="social-row">
+                    <img class="social-icon" src="theme/ava/St.png" alt="" aria-hidden="true">
                     <strong>Steam twin:</strong>
                     <a href="https://steamcommunity.com/profiles/76561198766866753/" target="_blank" rel="noopener noreferrer">x6uxoiangelsx</a>
                 </div>
@@ -1044,15 +1077,24 @@
                 <div class="skills-group">
                     <p class="skills-title">Programming</p>
                     <div class="skills-item skills-item-vertical">
-                        <strong>Java: </strong>
+                        <div class="skill-heading">
+                            <img class="skill-icon" src="theme/ava/Java.png" alt="" aria-hidden="true">
+                            <strong>Java:</strong>
+                        </div>
                         <span>Fullstack Developer | Middle</span>
                     </div>
                     <div class="skills-item skills-item-vertical">
-                        <strong>Python:</strong>
+                        <div class="skill-heading">
+                            <img class="skill-icon" src="theme/ava/Py.png" alt="" aria-hidden="true">
+                            <strong>Python:</strong>
+                        </div>
                         <span>Data Scientist | Backend Developer | Middle</span>
                     </div>
                     <div class="skills-item skills-item-vertical">
-                        <strong>C#:</strong>
+                        <div class="skill-heading">
+                            <img class="skill-icon" src="theme/ava/C%23.png" alt="" aria-hidden="true">
+                            <strong>C#:</strong>
+                        </div>
                         <span>Game Developer | Junior</span>
                     </div>
                     <div class="skills-item skills-item-vertical">
